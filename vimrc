@@ -1,1 +1,1 @@
-/home/esuchkov/.vimrc
+.gvimrc
