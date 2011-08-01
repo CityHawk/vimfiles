@@ -13,6 +13,7 @@ endif
 set nocompatible
 " set paste
 
+" language en
 set ai
 set ic
 set hls
@@ -24,11 +25,39 @@ set smarttab
 set expandtab
 set softtabstop=4
 
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10
+set nofoldenable        "dont fold by default
+set foldlevel=1  
+set list
+if !has("win32")
+    set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+endif
+"set listchars=tab:,trail:,nbsp:
+
+
+
 noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " allow backspacing over everything in insert mode
-colorscheme desert256
+colorscheme twilight2 
 set backspace=indent,eol,start
+
+let g:git_branch_status_head_current=1
+
+set laststatus=2
+set statusline=
+set statusline+=%-3.3n\                      " buffer number
+set statusline+=%f\                          " filename
+set statusline+=%h%m%r%w                     " status flags
+set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
+" set statusline+=\ %{fugitive#statusline()}     " fugitive
+set statusline+=%=                           " right align remainder
+set statusline+=0x%-8B                       " character value
+set statusline+=%-14(%l,%c%V%)               " line, character
+set statusline+=%<%P                         " file position
+set statusline+=%{GitBranchInfoString()}                        " file position
+
 
 set nobackup
 set autoindent		" always set autoindenting on
@@ -36,7 +65,6 @@ set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" show partial command in status line
 set number
-
 
 syntax enable
 
@@ -86,22 +114,54 @@ endif " has("autocmd")
 " Disabled for security reasons
 set nomodeline
 set wildmenu
-set guifont=Menlo\ 12
+if has("mac")
+    set guifont=Menlo:h16
+else
+    set guifont=Liberation\ Mono\ 14
+endif
+if has("win32") 
+    set guifont=Lucida_Console:h16
+    language us
+endif
 set columns=128
 
-let g:twitterusername='cityhawk' 
-let g:twitterpassword='CisOrgye'
-
-nnoremap <c-f> :FuzzyFinderTextMate<CR>
-
-set list
-set lcs+=trail:.
-
-#set hidden
-map <C-TAB> :bnext!<CR>
-map <C-S-TAB> :bprev!<CR>
-map <C-\> :b#<CR>
-
-map <C-S-R> :ruby finder.rescan!<CR>
+nnoremap <c-f> :CommandT<CR>
+set hidden
+" map <C-k> :tabnext<CR>
+map <C-Tab> :tabnext<CR>
+map <C-x> :tabclose<CR>
+" map <C-j> :tabprev<CR>
+map <C-S-Tab> :tabprev<CR>
+" map <C-\> :b#<CR>
+" nnoremap <S-F5> :FufRenewCache<CR> 
+" map <C-S-R> :ruby finder.rescan!<CR>
 map <C-/> NERDComToggleComment<CR>
- 
+nmap <silent> <C-p> <Plug>ToggleProject
+map <F10> :TlistToggle<cr>
+vmap <F10> <esc>:TlistToggle<cr>
+imap <F10> <esc>:TlistToggle<cr>
+" nnoremap <silent> <C-t> :TagExplorer<CR> 
+" disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
+vnoremap _( <Esc>`>a)<Esc>`<i(<Esc>
+vnoremap _{ <Esc>`>a}<Esc>`<i{Esc>
+vnoremap _[ <Esc>`>a]<Esc>`<i[Esc>
+vnoremap _' <Esc>`>a'<Esc>`<i'Esc>
+vnoremap _" <Esc>`>a"<Esc>`<i"Esc>
+
+if has("mac")
+    set fu
+endif
