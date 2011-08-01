@@ -1056,7 +1056,7 @@ endfunction
 "treenode: file node to open
 function! s:TreeFileNode.open()
     if b:NERDTreeType ==# "secondary"
-        exec 'edit ' . self.path.str({'format': 'Edit'})
+        exec 'tabedit ' . self.path.str({'format': 'Edit'})
         return
     endif
 
@@ -1075,7 +1075,7 @@ function! s:TreeFileNode.open()
                 else
                     call s:exec('wincmd p')
                 endif
-                exec ("edit " . self.path.str({'format': 'Edit'}))
+                exec ("tabedit " . self.path.str({'format': 'Edit'}))
             catch /^Vim\%((\a\+)\)\=:E37/
                 call s:putCursorInTreeWin()
                 throw "NERDTree.FileAlreadyOpenAndModifiedError: ". self.path.str() ." is already open and modified."

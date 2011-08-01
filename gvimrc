@@ -37,6 +37,7 @@ set ruler		" show the cursor position all the time
 set showcmd		" show partial command in status line
 set number
 
+
 syntax enable
 
 " set viminfo='50,r/mnt/floppy,r/mnt/zip,%,n~/.viminfo
@@ -93,9 +94,14 @@ let g:twitterpassword='CisOrgye'
 
 nnoremap <c-f> :FuzzyFinderTextMate<CR>
 
-set hidden
+set list
+set lcs+=trail:.
+
+#set hidden
 map <C-TAB> :bnext!<CR>
 map <C-S-TAB> :bprev!<CR>
 map <C-\> :b#<CR>
 
 map <C-S-R> :ruby finder.rescan!<CR>
+map <C-/> NERDComToggleComment<CR>
+ 
