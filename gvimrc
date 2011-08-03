@@ -40,7 +40,7 @@ endif
 noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " allow backspacing over everything in insert mode
-colorscheme twilight2 
+colorscheme vilight
 set backspace=indent,eol,start
 
 let g:git_branch_status_head_current=1
