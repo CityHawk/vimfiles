@@ -35,12 +35,15 @@ if !has("win32")
 endif
 "set listchars=tab:,trail:,nbsp:
 
+set t_Co=256
+"set t_AB=^[[48;5;%dm
+"set t_AF=^[[38;5;%dm
 
 
 noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " allow backspacing over everything in insert mode
-colorscheme twilight2 
+colorscheme twilight2
 set backspace=indent,eol,start
 
 let g:git_branch_status_head_current=1
@@ -75,9 +78,9 @@ syntax enable
 " au FileType spec map <buffer> <F12> <Plug>AddChangelogEntry
 
 
-if !has("gui")
-    let g:CSApprox_loaded = 1
-endif
+"if !has("gui")
+"    let g:CSApprox_loaded = 1
+"endif
 
 map <F3> NERDComLineSexyMap 
 map <F4> NERDComUncommentLine
@@ -125,31 +128,26 @@ if has("win32")
 endif
 set columns=128
 
-nnoremap <c-f> :CommandT<CR>
+nnoremap <c-t> :CommandT<CR>
+nnoremap <c-f> :NERDTreeToggle<CR>
 set hidden
-" map <C-k> :tabnext<CR>
-map <C-Tab> :tabnext<CR>
-map <C-x> :tabclose<CR>
-" map <C-j> :tabprev<CR>
-map <C-S-Tab> :tabprev<CR>
-" map <C-\> :b#<CR>
-" nnoremap <S-F5> :FufRenewCache<CR> 
-" map <C-S-R> :ruby finder.rescan!<CR>
-map <C-/> NERDComToggleComment<CR>
-nmap <silent> <C-p> <Plug>ToggleProject
+imap <C-Tab> :tabnext<CR>
+imap <C-S-Tab> :tabprev<CR>
+map <c-/> NERDComToggleComment<CR>
+nmap <silent> <c-p> <Plug>ToggleProject
 map <F10> :TlistToggle<cr>
 vmap <F10> <esc>:TlistToggle<cr>
 imap <F10> <esc>:TlistToggle<cr>
 " nnoremap <silent> <C-t> :TagExplorer<CR> 
 " disable arrow keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+"map <up> <nop>
+"map <down> <nop>
+"map <left> <nop>
+"map <right> <nop>
+"imap <up> <nop>
+"imap <down> <nop>
+"imap <left> <nop>
+"imap <right> <nop>
 
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
