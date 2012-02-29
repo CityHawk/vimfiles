@@ -1,11 +1,11 @@
 " System-wide vimrc file for ALTLinux distribution
 "
-" Maintainer:	Vim Development Team <vim@packages.altlinux.ru>
-" Last change:	2003 Apr 25 by Sir Raorn <raorn@altlinux.ru>
+" Maintainer:   Vim Development Team <vim@packages.altlinux.ru>
+" Last change:  2003 Apr 25 by Sir Raorn <raorn@altlinux.ru>
 "
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
-	finish
+    finish
 endif
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -63,10 +63,10 @@ set statusline+=%{GitBranchInfoString()}                        " file position
 
 
 set nobackup
-set autoindent		" always set autoindenting on
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" show partial command in status line
+set autoindent      " always set autoindenting on
+set history=50      " keep 50 lines of command line history
+set ruler       " show the cursor position all the time
+set showcmd     " show partial command in status line
 set number
 
 syntax enable
@@ -111,14 +111,14 @@ endif " has("autocmd")
 
 " add key mappings for national keyboards
 " if has("langmap") && filereadable( $VIMRUNTIME . "/langmap/" . $LANG . ".vim" )
-"	exe "so " . $VIMRUNTIME . "/langmap/" . $LANG . ".vim"
+"   exe "so " . $VIMRUNTIME . "/langmap/" . $LANG . ".vim"
 "endif
 
 " Disabled for security reasons
 set nomodeline
 set wildmenu
 if has("mac")
-    set guifont=Menlo:h16
+    set guifont=Menlo:h19
 else
     set guifont=Liberation\ Mono\ 14
 endif
@@ -128,17 +128,18 @@ if has("win32")
 endif
 set columns=128
 
+" set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+
 nnoremap <c-t> :CommandT<CR>
 nnoremap <c-f> :NERDTreeToggle<CR>
-set hidden
-imap <C-Tab> :tabnext<CR>
-imap <C-S-Tab> :tabprev<CR>
+"set hidden
 map <c-/> NERDComToggleComment<CR>
 nmap <silent> <c-p> <Plug>ToggleProject
 map <F10> :TlistToggle<cr>
 vmap <F10> <esc>:TlistToggle<cr>
 imap <F10> <esc>:TlistToggle<cr>
 " nnoremap <silent> <C-t> :TagExplorer<CR> 
+
 " disable arrow keys
 "map <up> <nop>
 "map <down> <nop>
@@ -149,10 +150,26 @@ imap <F10> <esc>:TlistToggle<cr>
 "imap <left> <nop>
 "imap <right> <nop>
 
+" autobrackets
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
+
+inoremap [      []<Left>
+inoremap [<CR>  [<CR>]<Esc>O
+inoremap [[     [
+inoremap [[     []
+
+inoremap (      ()<Left>
+inoremap (<CR>  (<CR>)<Esc>O
+inoremap ((     (
+inoremap ((     ()
+
+inoremap '      ''<Left>
+inoremap '<CR>  '<CR>'<Esc>O
+inoremap ''     '
+inoremap ''     ''
 
 vnoremap _( <Esc>`>a)<Esc>`<i(<Esc>
 vnoremap _{ <Esc>`>a}<Esc>`<i{Esc>
@@ -162,4 +179,33 @@ vnoremap _" <Esc>`>a"<Esc>`<i"Esc>
 
 if has("mac")
     set fu
+    set invmmta
 endif
+
+au BufNewFile,BufRead */*cookbooks/*  call s:ft_chef_hook()
+
+function! ChefNerdTreeFind(env)"{{{
+  try
+    :NERDTreeFind
+    let scrolloff_orig = &scrolloff
+    let &scrolloff = 15
+    normal! jk
+    wincmd p
+  finally
+    let &scrolloff = scrolloff_orig
+  endtry
+endfunction"}}}
+let g:chef = {}
+let g:chef.hooks = ['ChefNerdTreeFind']
+" let g:chef.hooks = []
+let g:chef.any_finders = ['Attribute', 'Source', 'Recipe', 'Definition', "LWRP"]
+
+function! s:ft_chef_hook()"{{{
+  " Keyboard:
+  nnoremap <buffer> <silent> <M-a> :<C-u>ChefFindAny<CR>
+  nnoremap <buffer> <silent> <M-s> :<C-u>ChefFindAnySplit<CR>
+  nnoremap <buffer> <silent> <M-r> :<C-u>ChefFindRelated<CR>
+  " nnoremap <buffer> <silent> <CR>  :<C-u>ChefFindAny<CR>
+  let b:phrase_ext = 'chef'
+endfunction"}}}
+
