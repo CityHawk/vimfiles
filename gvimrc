@@ -63,6 +63,8 @@ set statusline+=%{GitBranchInfoString()}                        " file position
 
 
 set nobackup
+set nowritebackup
+set noswapfile
 set autoindent      " always set autoindenting on
 set history=50      " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
@@ -150,35 +152,8 @@ imap <F10> <esc>:TlistToggle<cr>
 "imap <left> <nop>
 "imap <right> <nop>
 
-" autobrackets
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
-
-inoremap [      []<Left>
-inoremap [<CR>  [<CR>]<Esc>O
-inoremap [[     [
-inoremap [[     []
-
-inoremap (      ()<Left>
-inoremap (<CR>  (<CR>)<Esc>O
-inoremap ((     (
-inoremap ((     ()
-
-inoremap '      ''<Left>
-inoremap '<CR>  '<CR>'<Esc>O
-inoremap ''     '
-inoremap ''     ''
-
-vnoremap _( <Esc>`>a)<Esc>`<i(<Esc>
-vnoremap _{ <Esc>`>a}<Esc>`<i{Esc>
-vnoremap _[ <Esc>`>a]<Esc>`<i[Esc>
-vnoremap _' <Esc>`>a'<Esc>`<i'Esc>
-vnoremap _" <Esc>`>a"<Esc>`<i"Esc>
-
 if has("mac")
-    set fu
+    " set fu
     set invmmta
 endif
 
