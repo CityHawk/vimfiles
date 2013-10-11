@@ -36,8 +36,6 @@ endif
 "set listchars=tab:,trail:,nbsp:
 
 set t_Co=256
-"set t_AB=^[[48;5;%dm
-"set t_AF=^[[38;5;%dm
 
 
 noremap <silent> <c-e> :NERDTreeToggle<CR>
@@ -73,13 +71,6 @@ set number
 
 syntax enable
 
-" set viminfo='50,r/mnt/floppy,r/mnt/zip,%,n~/.viminfo
-" map Q gq
-" map <F12> :r !LANG=C date '+\%a \%b \%d \%Y Eugene Suchkov <suchkov@linux-online.ru>'
-" map <F12>  1GO :r !date '+\%Y-\%m-\%d' 2GA  Jason Molenda  ( :r !whoami kJxA@ :r !hostname A) kJxkddjO
-" au FileType spec map <buffer> <F12> <Plug>AddChangelogEntry
-
-
 "if !has("gui")
 "    let g:CSApprox_loaded = 1
 "endif
@@ -110,13 +101,6 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-
-" add key mappings for national keyboards
-" if has("langmap") && filereadable( $VIMRUNTIME . "/langmap/" . $LANG . ".vim" )
-"   exe "so " . $VIMRUNTIME . "/langmap/" . $LANG . ".vim"
-"endif
-
-" Disabled for security reasons
 set nomodeline
 set wildmenu
 if has("mac")
@@ -156,6 +140,26 @@ if has("mac")
     " set fu
     set invmmta
 endif
+
+if has("gui_macvim")
+  map <D-S-Return> :call MaximizeToggle ()<CR>
+endif
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exec "source " . s:maximize_session
+    call delete(s:maximize_session)
+    unlet s:maximize_session
+    let &hidden=s:maximize_hidden_save
+    unlet s:maximize_hidden_save
+  else
+    let s:maximize_hidden_save = &hidden
+    let s:maximize_session = tempname()
+    set hidden
+    exec "mksession! " . s:maximize_session
+    only
+  endif
+endfunction
 
 au BufNewFile,BufRead */*cookbooks/*  call s:ft_chef_hook()
 
