@@ -104,7 +104,7 @@ endif " has("autocmd")
 set nomodeline
 set wildmenu
 if has("mac")
-    set guifont=Source\ Code\ Pro:h18
+    set guifont=Source\ Code\ Pro\ Light:h15
 else
     set guifont=Liberation\ Mono\ 14
 endif
