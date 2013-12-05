@@ -1,0 +1,16 @@
+snippet chefspec 
+require 'spec_helper'
+
+describe '${1:recipe name}' do
+    let(:runner) do
+        ChefSpec::Runner.new do |node|
+            # Mocking attributes
+        end
+    end
+
+    before do
+        # stub search and data bags here if needed
+    end
+    let(:chef_run) { runner.converge (described_recipe) }
+end
+endsnippet

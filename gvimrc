@@ -6,7 +6,7 @@
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
     finish
-endif
+end
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -30,6 +30,10 @@ set foldnestmax=10
 set nofoldenable        "dont fold by default
 set foldlevel=1  
 set list
+
+call pathogen#infect()
+call pathogen#helptags()
+
 if !has("win32")
     set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 endif
@@ -104,7 +108,7 @@ endif " has("autocmd")
 set nomodeline
 set wildmenu
 if has("mac")
-    set guifont=Source\ Code\ Pro\ Light:h15
+    set guifont=Sauce\ Code\ Powerline\ Light:h15
 else
     set guifont=Liberation\ Mono\ 14
 endif
@@ -114,70 +118,24 @@ if has("win32")
 endif
 set columns=128
 
-" set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
-
-nnoremap <c-t> :CommandT<CR>
 nnoremap <c-f> :NERDTreeToggle<CR>
 "set hidden
 map <c-/> NERDComToggleComment<CR>
-nmap <silent> <c-p> <Plug>ToggleProject
-map <F10> :TlistToggle<cr>
-vmap <F10> <esc>:TlistToggle<cr>
-imap <F10> <esc>:TlistToggle<cr>
-" nnoremap <silent> <C-t> :TagExplorer<CR> 
-
-" disable arrow keys
-"map <up> <nop>
-"map <down> <nop>
-"map <left> <nop>
-"map <right> <nop>
-"imap <up> <nop>
-"imap <down> <nop>
-"imap <left> <nop>
-"imap <right> <nop>
 
 if has("mac")
     " set fu
     set invmmta
 endif
 
-if has("gui_macvim")
-  map <D-S-Return> :call MaximizeToggle ()<CR>
-endif
-
-function! MaximizeToggle()
-  if exists("s:maximize_session")
-    exec "source " . s:maximize_session
-    call delete(s:maximize_session)
-    unlet s:maximize_session
-    let &hidden=s:maximize_hidden_save
-    unlet s:maximize_hidden_save
-  else
-    let s:maximize_hidden_save = &hidden
-    let s:maximize_session = tempname()
-    set hidden
-    exec "mksession! " . s:maximize_session
-    only
-  endif
-endfunction
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 au BufNewFile,BufRead */*cookbooks/*  call s:ft_chef_hook()
 
-function! ChefNerdTreeFind(env)"{{{
-  try
-    :NERDTreeFind
-    let scrolloff_orig = &scrolloff
-    let &scrolloff = 15
-    normal! jk
-    wincmd p
-  finally
-    let &scrolloff = scrolloff_orig
-  endtry
-endfunction"}}}
 let g:chef = {}
 let g:chef.hooks = ['ChefNerdTreeFind']
-" let g:chef.hooks = []
 let g:chef.any_finders = ['Attribute', 'Source', 'Recipe', 'Definition', "LWRP"]
+let g:airline_powerline_fonts = 1
 
 function! s:ft_chef_hook()"{{{
   " Keyboard:
