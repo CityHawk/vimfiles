@@ -9,18 +9,23 @@ git_bundles = [
     "git://github.com/t9md/vim-chef.git",
     "git://github.com/dougireton/vim-chef.git",
     "git://github.com/bling/vim-airline.git",
-    "git://github.com/vim-scripts/ZoomWin.git",
     "git://github.com/taq/vim-git-branch-info",
-    "git://github.com/kien/ctrlp.vim.git",
     "git://github.com/SirVer/ultisnips.git",
     "git://github.com/tomtom/tcomment_vim.git",
     "git://github.com/tpope/vim-endwise.git",
     "git://github.com/scrooloose/syntastic.git",
-    "git://github.com/tpope/vim-sensible.git"
+    "git://github.com/tpope/vim-sensible.git",
+    "git://github.com/kien/rainbow_parentheses.vim.git",
+    "git://github.com/szw/vim-ctrlspace.git",
+    "git://github.com/sickill/vim-monokai",
+    "git://github.com/myusuf3/numbers.vim.git",
+    "git://github.com/ervandew/supertab",
+    "git://github.com/airblade/vim-gitgutter.git"
 ]
 
 vim_org_scripts = [
-    ["IndexedSearch", "7062",  "plugin"],
+    ["IndexedSearch", "7062",  "plugin"]
+    # ["closetag", "13", "scripts"]
 ]
 
 require 'fileutils'

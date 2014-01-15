@@ -23,7 +23,7 @@ set list
 noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " Colorscheme
-colorscheme Tomorrow-Night
+colorscheme monokai
 
 " Statusline
 set statusline=
@@ -45,9 +45,8 @@ set number
 
 
 " set nomodeline
-set guifont=Sauce\ Code\ Powerline\ Light:h15
+set guifont=Inconsolata\ for\ Powerline:h16
 
-set columns=128
 
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <c-/> TComment<CR>
@@ -60,11 +59,19 @@ let g:ctrlp_map = '<c-t>'
 let g:ctrlp_cmd = 'CtrlP'
 
 let g:airline_powerline_fonts = 1
+let g:airline_exclude_preview = 1
 
 " fixing vim-chef autodetect
-autocmd BufNewFile,BufRead cookbooks/*/\(attributes\|definitions\|libraries\|providers\|recipes\|resources\)/*.rb set filetype=ruby.chef
-autocmd BufNewFile,BufRead community-cookbooks/*/\(attributes\|definitions\|libraries\|providers\|recipes\|resources\)/*.rb set filetype=ruby.chef
+au BufNewFile,BufRead */*cookbooks/* set filetype=ruby.chef
+" nnoremap <c-c> :set ft=ruby.chef<CR>
 
-autocmd BufNewFile,BufRead cookbooks/*/templates/*/*.erb set filetype=eruby.chef
-autocmd BufNewFile,BufRead cookbooks/*/metadata.rb set filetype=ruby.chef
+au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesActivate
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+if has('gui')
+    set lines=999 columns=9999
+endif
 
