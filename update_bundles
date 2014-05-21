@@ -17,10 +17,12 @@ git_bundles = [
     "git://github.com/tpope/vim-sensible.git",
     "git://github.com/kien/rainbow_parentheses.vim.git",
     "git://github.com/szw/vim-ctrlspace.git",
-    "git://github.com/sickill/vim-monokai",
+    "git://github.com/tomasr/molokai",
     "git://github.com/myusuf3/numbers.vim.git",
     "git://github.com/ervandew/supertab",
-    "git://github.com/airblade/vim-gitgutter.git"
+    "git://github.com/airblade/vim-gitgutter.git",
+    "git://github.com/Raimondi/delimitMate.git",
+    "git://github.com/jistr/vim-nerdtree-tabs.git"
 ]
 
 vim_org_scripts = [

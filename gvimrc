@@ -17,13 +17,13 @@ set list
 
 " if !has("win32")
 "     set listchars=tab:▷.,trail:.,nbsp:.
-" endif
+
 
 
 noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " Colorscheme
-colorscheme monokai
+colorscheme molokai
 
 " Statusline
 set statusline=
@@ -43,9 +43,11 @@ set nowritebackup
 set noswapfile
 set number
 
+set showtabline=2
+
 
 " set nomodeline
-set guifont=Inconsolata\ for\ Powerline:h16
+set guifont=Inconsolata\ for\ Powerline:h18
 
 
 nnoremap <c-f> :NERDTreeToggle<CR>
@@ -55,14 +57,17 @@ if has("mac")
     set invmmta
 endif
 
-let g:ctrlp_map = '<c-t>'
-let g:ctrlp_cmd = 'CtrlP'
-
 let g:airline_powerline_fonts = 1
-let g:airline_exclude_preview = 1
+" let g:airline_exclude_preview = 1
+let g:airline_theme = 'molokai'
+let g:airline#extensions#tabline#enabled = 0
+
 
 " fixing vim-chef autodetect
 au BufNewFile,BufRead */*cookbooks/* set filetype=ruby.chef
+au BufNewFile,BufRead *.rb set tabstop=2
+au BufNewFile,BufRead *.rb set softtabstop=2
+au BufNewFile,BufRead *.rb set shiftwidth=2 
 " nnoremap <c-c> :set ft=ruby.chef<CR>
 
 au VimEnter * RainbowParenthesesToggle
