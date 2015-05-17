@@ -20,7 +20,6 @@ set list
 
 
 
-noremap <silent> <c-e> :NERDTreeToggle<CR>
 
 " Colorscheme
 colorscheme molokai
@@ -42,16 +41,22 @@ set nobackup
 set nowritebackup
 set noswapfile
 set number
+set norelativenumber
 
 set showtabline=2
 
 
 " set nomodeline
-set guifont=Inconsolata\ for\ Powerline:h18
+" set guifont=Inconsolata\ for\ Powerline:h18
+set guifont=Literation\ Mono\ Powerline:h16
+" set guifont=Consolas:h16
+
 
 
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <c-/> TComment<CR>
+map <Tab><Tab> <C-W><C-W>
+nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 if has("mac")
     set invmmta
@@ -67,8 +72,7 @@ let g:airline#extensions#tabline#enabled = 0
 au BufNewFile,BufRead */*cookbooks/* set filetype=ruby.chef
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
-au BufNewFile,BufRead *.rb set shiftwidth=2 
-" nnoremap <c-c> :set ft=ruby.chef<CR>
+au BufNewFile,BufRead *.rb set shiftwidth=2
 
 au VimEnter * RainbowParenthesesToggle
 au VimEnter * RainbowParenthesesActivate
@@ -79,4 +83,13 @@ au Syntax * RainbowParenthesesLoadBraces
 if has('gui')
     set lines=999 columns=9999
 endif
+
+highlight Comment gui=italic cterm=italic
+highlight Comment cterm=italic
+highlight Define gui=italic
+highlight Define cterm=italic
+
+set textwidth=80
+let &colorcolumn=join(range(81,999),",")
+highlight ColorColumn ctermbg=255 guibg=#202020
 
