@@ -23,7 +23,7 @@ git_bundles = [
     "http://github.com/ervandew/supertab",
     "http://github.com/airblade/vim-gitgutter.git",
     "http://github.com/Raimondi/delimitMate.git",
-    "http://github.com/jistr/vim-nerdtree-tabs.git",
+    # "http://github.com/jistr/vim-nerdtree-tabs.git",
     "http://github.com/ekalinin/Dockerfile.vim.git",
     "http://github.com/vim-pandoc/vim-pandoc.git",
     "http://github.com/rodjek/vim-puppet.git",
