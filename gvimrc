@@ -1,6 +1,47 @@
-call pathogen#infect()
-call pathogen#helptags()
+" setting up Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'plasticboy/vim-markdown.git'
+Plugin 'tpope/vim-surround.git'
+Plugin 'vim-ruby/vim-ruby.git'
+Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
+Plugin 'dougireton/vim-chef.git'
+Plugin 'bling/vim-airline.git'
+Plugin 'taq/vim-git-branch-info'
+Plugin 'SirVer/ultisnips.git'
+Plugin 'tomtom/tcomment_vim.git'
+Plugin 'tpope/vim-endwise.git'
+Plugin 'scrooloose/syntastic.git'
+Plugin 'tpope/vim-sensible.git'
+Plugin 'kien/rainbow_parentheses.vim.git'
+Plugin 'szw/vim-ctrlspace.git'
+Plugin 'tomasr/molokai'
+Plugin 'ervandew/supertab'
+Plugin 'airblade/vim-gitgutter.git'
+Plugin 'Raimondi/delimitMate.git'
+Plugin 'ekalinin/Dockerfile.vim.git'
+Plugin 'vim-pandoc/vim-pandoc.git'
+Plugin 'rodjek/vim-puppet.git'
+Plugin 'godlygeek/tabular.git'
+Plugin 'honza/vim-snippets.git'
+Plugin 'mtth/scratch.vim.git'
+Plugin 'elzr/vim-json.git'
+Plugin 'markcornick/vim-hashicorp-tools.git'
+" Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'IndexedSearch'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+filetype on
 set ic
 
 set tabstop=4
