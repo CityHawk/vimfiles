@@ -13,6 +13,7 @@ set foldnestmax=10
 set nofoldenable        "dont fold by default
 set foldlevel=1
 set list
+set hidden
 
 
 " if !has("win32")
@@ -21,8 +22,10 @@ set list
 
 
 
+set t_Co=256
 " Colorscheme
 colorscheme molokai
+" colorscheme desert
 
 " Statusline
 set statusline=
@@ -91,5 +94,5 @@ highlight Define cterm=italic
 
 set textwidth=80
 let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=255 guibg=#202020
+highlight ColorColumn ctermbg=234 guibg=#111111
 
