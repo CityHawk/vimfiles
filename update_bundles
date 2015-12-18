@@ -30,7 +30,8 @@ git_bundles = [
     "http://github.com/godlygeek/tabular.git",
     "http://github.com/honza/vim-snippets.git",
     "http://github.com/mtth/scratch.vim.git",
-    "http://github.com/elzr/vim-json.git"
+    "http://github.com/elzr/vim-json.git",
+    "http://github.com/markcornick/vim-hashicorp-tools.git"
 ]
 
 vim_org_scripts = [
