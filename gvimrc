@@ -65,8 +65,11 @@ set hidden
 
 set t_Co=256
 " Colorscheme
-colorscheme molokai
-" colorscheme desert
+try
+    colorscheme molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry
 
 " Statusline
 set statusline=
@@ -118,11 +121,13 @@ au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
 
-au VimEnter * RainbowParenthesesToggle
-au VimEnter * RainbowParenthesesActivate
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+if exists(':RainbowParenthesesActivate')
+    au VimEnter * RainbowParenthesesToggle
+    au VimEnter * RainbowParenthesesActivate
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+endif
 
 if has('gui')
     set lines=999 columns=9999
