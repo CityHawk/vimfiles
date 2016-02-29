@@ -11,11 +11,14 @@ Plugin 'tpope/vim-surround.git'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-endwise.git'
 Plugin 'tpope/vim-sensible.git'
+Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-liquid'
 Plugin 'plasticboy/vim-markdown.git'
 Plugin 'vim-ruby/vim-ruby.git'
 Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
 Plugin 'dougireton/vim-chef.git'
-Plugin 'bling/vim-airline.git'
+Plugin 'vim-airline/vim-airline.git'
+Plugin 'vim-airline/vim-airline-themes.git'
 Plugin 'taq/vim-git-branch-info'
 Plugin 'SirVer/ultisnips.git'
 Plugin 'tomtom/tcomment_vim.git'
@@ -36,6 +39,9 @@ Plugin 'elzr/vim-json.git'
 Plugin 'markcornick/vim-hashicorp-tools.git'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'benmills/vimux'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'bling/vim-bufferline'
+Plugin 'edkolev/promptline.vim'
 " Plugin 'pgr0ss/vimux-ruby-test'
 " Plugin 'Valloric/YouCompleteMe'
 
@@ -60,6 +66,7 @@ set foldlevel=1
 set list
 set hidden
 
+set noshowmode
 
 " if !has("win32")
 "     set listchars=tab:▷.,trail:.,nbsp:.
@@ -116,8 +123,10 @@ endif
 let g:airline_powerline_fonts = 1
 " let g:airline_exclude_preview = 1
 let g:airline_theme = 'molokai'
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#enabled = 0
-
+let g:bufferline_echo = 0
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
 " fixing vim-chef autodetect
 au BufNewFile,BufRead */*cookbooks/* set filetype=ruby.chef
