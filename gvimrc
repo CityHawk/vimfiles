@@ -42,6 +42,7 @@ Plugin 'benmills/vimux'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/promptline.vim'
+Plugin 'takac/vim-hardtime'
 " Plugin 'pgr0ss/vimux-ruby-test'
 " Plugin 'Valloric/YouCompleteMe'
 
@@ -124,7 +125,7 @@ let g:airline_powerline_fonts = 1
 " let g:airline_exclude_preview = 1
 let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#enabled = 0
+" let g:airline#extensions#tabline#enabled = 0
 let g:bufferline_echo = 0
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
@@ -154,4 +155,5 @@ highlight Define cterm=italic
 set textwidth=80
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234 guibg=#111111
+let g:hardtime_default_on = 1
 
