@@ -19,7 +19,6 @@ Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
 Plugin 'dougireton/vim-chef.git'
 Plugin 'vim-airline/vim-airline.git'
 Plugin 'vim-airline/vim-airline-themes.git'
-Plugin 'taq/vim-git-branch-info'
 Plugin 'SirVer/ultisnips.git'
 Plugin 'tomtom/tcomment_vim.git'
 Plugin 'scrooloose/syntastic.git'
@@ -28,10 +27,9 @@ Plugin 'szw/vim-ctrlspace.git'
 Plugin 'tomasr/molokai'
 Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter.git'
-Plugin 'Raimondi/delimitMate.git'
-Plugin 'ekalinin/Dockerfile.vim.git'
+" This plug-in provides automatic closing of quotes, parenthesis, brackets,
+" Plugin 'Raimondi/delimitMate.git'
 Plugin 'vim-pandoc/vim-pandoc.git'
-Plugin 'rodjek/vim-puppet.git'
 Plugin 'godlygeek/tabular.git'
 Plugin 'honza/vim-snippets.git'
 Plugin 'mtth/scratch.vim.git'
@@ -41,7 +39,6 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'benmills/vimux'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-bufferline'
-Plugin 'edkolev/promptline.vim'
 Plugin 'takac/vim-hardtime'
 " Plugin 'pgr0ss/vimux-ruby-test'
 " Plugin 'Valloric/YouCompleteMe'
@@ -66,15 +63,8 @@ set nofoldenable        "dont fold by default
 set foldlevel=1
 set list
 set hidden
-
+set hlsearch
 set noshowmode
-
-" if !has("win32")
-"     set listchars=tab:▷.,trail:.,nbsp:.
-
-
-
-
 set t_Co=256
 " Colorscheme
 try
@@ -100,7 +90,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set number
-set norelativenumber
+set relativenumber
 
 set showtabline=2
 
@@ -156,4 +146,3 @@ set textwidth=80
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234 guibg=#111111
 let g:hardtime_default_on = 1
-
