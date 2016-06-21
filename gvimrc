@@ -29,19 +29,14 @@ Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter.git'
 " This plug-in provides automatic closing of quotes, parenthesis, brackets,
 " Plugin 'Raimondi/delimitMate.git'
-Plugin 'vim-pandoc/vim-pandoc.git'
 Plugin 'godlygeek/tabular.git'
 Plugin 'honza/vim-snippets.git'
-Plugin 'mtth/scratch.vim.git'
 Plugin 'elzr/vim-json.git'
-Plugin 'markcornick/vim-hashicorp-tools.git'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'benmills/vimux'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'takac/vim-hardtime'
-" Plugin 'pgr0ss/vimux-ruby-test'
-" Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'IndexedSearch'
 
@@ -73,18 +68,6 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
 
-" Statusline
-set statusline=
-set statusline+=%-3.3n\                      " buffer number
-set statusline+=%f\                          " filename
-set statusline+=%h%m%r%w                     " status flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
-set statusline+=\ %{fugitive#statusline()}     " fugitive
-set statusline+=%=                           " right align remainder
-set statusline+=0x%-8B                       " character value
-set statusline+=%-14(%l,%c%V%)               " line, character
-set statusline+=%<%P                         " file position
-
 
 set nobackup
 set nowritebackup
@@ -113,14 +96,13 @@ endif
 
 let g:airline_powerline_fonts = 1
 " let g:airline_exclude_preview = 1
-let g:airline_theme = 'molokai'
+let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#enabled = 0
 let g:bufferline_echo = 0
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+let g:airline#extensions#tmuxline#enabled = 0
 
 " fixing vim-chef autodetect
-au BufNewFile,BufRead */*cookbooks/* set filetype=ruby.chef
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
@@ -136,11 +118,6 @@ endif
 if has('gui')
     set lines=999 columns=9999
 endif
-
-highlight Comment gui=italic cterm=italic
-highlight Comment cterm=italic
-highlight Define gui=italic
-highlight Define cterm=italic
 
 set textwidth=80
 let &colorcolumn=join(range(81,999),",")
