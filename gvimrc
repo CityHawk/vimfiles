@@ -25,6 +25,7 @@ Plugin 'scrooloose/syntastic.git'
 Plugin 'kien/rainbow_parentheses.vim.git'
 Plugin 'szw/vim-ctrlspace.git'
 Plugin 'tomasr/molokai'
+Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter.git'
 " This plug-in provides automatic closing of quotes, parenthesis, brackets,
@@ -100,6 +101,11 @@ let g:bufferline_echo = 0
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 let g:airline#extensions#tmuxline#enabled = 0
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " fixing vim-chef autodetect
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
@@ -121,3 +127,7 @@ set textwidth=80
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234 guibg=#111111
 let g:hardtime_default_on = 1
+
+set enc=utf-8
+set fillchars=vert:\│
+
