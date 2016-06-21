@@ -79,9 +79,7 @@ set showtabline=2
 
 
 " set nomodeline
-" set guifont=Inconsolata\ for\ Powerline:h18
-set guifont=Literation\ Mono\ Powerline:h16
-" set guifont=Consolas:h16
+set guifont=Cousine\ for\ Powerline:h14
 
 
 
