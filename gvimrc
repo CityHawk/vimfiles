@@ -131,3 +131,15 @@ let g:hardtime_default_on = 1
 set enc=utf-8
 set fillchars=vert:\│
 
+nnoremap <C-K> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+    if !exists("s:highlightcursor")
+        match Todo /\k*\%#\k*/
+        let s:highlightcursor=1
+    else
+        match None
+        unlet s:highlightcursor
+    endif
+endfunction
+
+call HighlightNearCursor()
