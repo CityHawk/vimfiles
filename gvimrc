@@ -77,6 +77,7 @@ set number
 set relativenumber
 
 set showtabline=2
+set cursorline
 
 
 " set nomodeline
@@ -119,10 +120,6 @@ if exists(':RainbowParenthesesActivate')
     au Syntax * RainbowParenthesesLoadBraces
 endif
 
-if has('gui')
-    set lines=999 columns=9999
-endif
-
 set textwidth=80
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234 guibg=#111111
@@ -131,15 +128,3 @@ let g:hardtime_default_on = 1
 set enc=utf-8
 set fillchars=vert:\│
 
-nnoremap <C-K> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-    if !exists("s:highlightcursor")
-        match Todo /\k*\%#\k*/
-        let s:highlightcursor=1
-    else
-        match None
-        unlet s:highlightcursor
-    endif
-endfunction
-
-call HighlightNearCursor()
