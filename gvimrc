@@ -91,10 +91,6 @@ map <c-/> TComment<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
-if has("mac")
-    set invmmta
-endif
-
 let g:airline_powerline_fonts = 1
 " let g:airline_exclude_preview = 1
 let g:airline_theme = 'murmur'
@@ -124,7 +120,7 @@ endif
 set textwidth=80
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=234 guibg=#111111
-let g:hardtime_default_on = 1
+" let g:hardtime_default_on = 1
 
 set enc=utf-8
 set fillchars=vert:\│
