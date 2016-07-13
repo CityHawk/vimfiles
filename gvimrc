@@ -58,6 +58,7 @@ set foldnestmax=10
 set nofoldenable        "dont fold by default
 set foldlevel=1
 set list
+set listchars=tab:\ \ ,trail:·,nbsp:_
 set hidden
 set hlsearch
 set noshowmode
