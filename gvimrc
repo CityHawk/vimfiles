@@ -117,10 +117,7 @@ if exists(':RainbowParenthesesActivate')
     au Syntax * RainbowParenthesesLoadBraces
 endif
 
-set textwidth=80
-let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=234 guibg=#111111
-" let g:hardtime_default_on = 1
+set colorcolumn=80
 
 set enc=utf-8
 set fillchars=vert:\│
