@@ -21,7 +21,8 @@ Plugin 'vim-airline/vim-airline.git'
 Plugin 'vim-airline/vim-airline-themes.git'
 Plugin 'SirVer/ultisnips.git'
 Plugin 'tomtom/tcomment_vim.git'
-Plugin 'scrooloose/syntastic.git'
+" Plugin 'scrooloose/syntastic.git'
+Plugin 'neomake/neomake.git'
 Plugin 'kien/rainbow_parentheses.vim.git'
 Plugin 'szw/vim-ctrlspace.git'
 Plugin 'tomasr/molokai'
@@ -99,15 +100,18 @@ let g:bufferline_echo = 0
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 let g:airline#extensions#tmuxline#enabled = 0
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " fixing vim-chef autodetect
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
+
+au BufWritePost * Neomake
+
 
 if exists(':RainbowParenthesesActivate')
     au VimEnter * RainbowParenthesesToggle
