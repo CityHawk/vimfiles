@@ -39,6 +39,7 @@ Plugin 'benmills/vimux'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'takac/vim-hardtime'
+Plugin 'ayu-theme/ayu-vim'
 
 Plugin 'IndexedSearch'
 
@@ -66,7 +67,8 @@ set noshowmode
 set t_Co=256
 " Colorscheme
 try
-    colorscheme molokai
+    " let g:molokai_original = 0
+    colorscheme ayu
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
 endtry
@@ -85,30 +87,29 @@ set cursorline
 " set nomodeline
 set guifont=Cousine\ for\ Powerline:h14
 
-
-
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <c-/> TComment<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 " let g:airline_exclude_preview = 1
-let g:airline_theme = 'murmur'
+" let g:airline_theme = 'murmur'
+let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:bufferline_echo = 0
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 let g:airline#extensions#tmuxline#enabled = 0
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " fixing vim-chef autodetect
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
+
+" Rakefile should respect common settings
+au BufNewFile,BufRead Rakefile set tabstop=2
+au BufNewFile,BufRead Rakefile set softtabstop=2
+au BufNewFile,BufRead Rakefile set shiftwidth=2
 
 au BufWritePost * Neomake
 
@@ -126,3 +127,16 @@ set colorcolumn=80
 set enc=utf-8
 set fillchars=vert:\│
 
+" set t_8f=^[[38;2;%lu;%lu;%lum
+" set t_8b=^[[48;2;%lu;%lu;%lum
+
+set termguicolors
+highlight Comment gui=italic cterm=italic
+highlight Comment cterm=italic
+highlight Define gui=italic
+highlight Define cterm=italic
+
+" set cursor shape for different modes
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
