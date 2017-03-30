@@ -85,7 +85,7 @@ set cursorline
 
 
 " set nomodeline
-set guifont=Cousine\ for\ Powerline:h14
+set guifont=InputMonoNarrow:h14
 
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <c-/> TComment<CR>
