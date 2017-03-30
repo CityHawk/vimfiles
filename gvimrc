@@ -40,6 +40,10 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'takac/vim-hardtime'
 Plugin 'ayu-theme/ayu-vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'crater2150/vim-theme-chroma'
+Plugin 'ltlollo/diokai'
+Plugin 'Reewr/vim-monokai-phoenix'
 
 Plugin 'IndexedSearch'
 
@@ -66,8 +70,11 @@ set hlsearch
 set noshowmode
 set t_Co=256
 " Colorscheme
+set termguicolors
 try
     " let g:molokai_original = 0
+    " set background=dark
+    " colorscheme chroma
     colorscheme ayu
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme desert
@@ -130,13 +137,38 @@ set fillchars=vert:\│
 " set t_8f=^[[38;2;%lu;%lu;%lum
 " set t_8b=^[[48;2;%lu;%lu;%lum
 
-set termguicolors
-highlight Comment gui=italic cterm=italic
-highlight Comment cterm=italic
-highlight Define gui=italic
-highlight Define cterm=italic
+hi Comment gui=italic cterm=italic
+hi Define gui=italic cterm=italic
+
+hi Conditional gui=bold cterm=bold
+hi Constant gui=bold cterm=bold
+hi Debug gui=bold cterm=bold
+hi DiffText gui=italic,bold cterm=italic,bold
+hi Directory gui=bold cterm=bold
+hi ErrorMsg gui=bold cterm=bold
+hi Exception gui=bold cterm=bold
+hi Keyword gui=bold cterm=bold
+hi Macro gui=italic cterm=italic
+hi SpecialKey gui=italic cterm=italic
+hi MatchParen gui=bold cterm=bold
+hi PreCondit gui=bold cterm=bold
+hi Repeat gui=bold cterm=bold
+hi SpecialChar gui=bold cterm=bold
+hi SpecialComment gui=bold cterm=bold
+hi Special gui=italic cterm=italic
+hi Statement gui=bold cterm=bold
+hi StorageClass gui=italic cterm=italic
+hi Tag gui=italic cterm=italic
+hi Todo gui=bold cterm=bold
+hi Underlined gui=underline cterm=underline
+hi VertSplit gui=bold cterm=bold
+hi WarningMsg gui=bold
+
+
 
 " set cursor shape for different modes
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
+let g:indentLine_char = '│'
