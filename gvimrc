@@ -6,16 +6,17 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-endwise.git'
 Plugin 'tpope/vim-sensible.git'
-Plugin 'tpope/vim-obsession'
-Plugin 'tpope/vim-liquid'
 Plugin 'plasticboy/vim-markdown.git'
 Plugin 'vim-ruby/vim-ruby.git'
-Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
+" ctags like jumping around in chef code
+" Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
+" enables foodcritic checks and aware environment
 Plugin 'dougireton/vim-chef.git'
 Plugin 'vim-airline/vim-airline.git'
 Plugin 'vim-airline/vim-airline-themes.git'
@@ -23,10 +24,11 @@ Plugin 'SirVer/ultisnips.git'
 Plugin 'tomtom/tcomment_vim.git'
 " Plugin 'scrooloose/syntastic.git'
 Plugin 'neomake/neomake.git'
-Plugin 'kien/rainbow_parentheses.vim.git'
-Plugin 'szw/vim-ctrlspace.git'
+" Plugin 'kien/rainbow_parentheses.vim.git'
+Plugin 'luochen1990/rainbow'
+" Plugin 'szw/vim-ctrlspace.git'
 Plugin 'tomasr/molokai'
-Plugin 'chriskempson/vim-tomorrow-theme'
+" Completion by tab, not sure I need it
 Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter.git'
 " This plug-in provides automatic closing of quotes, parenthesis, brackets,
@@ -34,16 +36,14 @@ Plugin 'airblade/vim-gitgutter.git'
 Plugin 'godlygeek/tabular.git'
 Plugin 'honza/vim-snippets.git'
 Plugin 'elzr/vim-json.git'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'benmills/vimux'
-Plugin 'edkolev/tmuxline.vim'
+" can export theme to tmux
+" Plugin 'edkolev/tmuxline.vim'
+" plugin to show the list of buffers in the command bar
 Plugin 'bling/vim-bufferline'
-Plugin 'takac/vim-hardtime'
+" I don't need it but let's keep it here as a remainder
+" Plugin 'takac/vim-hardtime'
 Plugin 'ayu-theme/ayu-vim'
 Plugin 'Yggdroot/indentLine'
-Plugin 'crater2150/vim-theme-chroma'
-Plugin 'ltlollo/diokai'
-Plugin 'Reewr/vim-monokai-phoenix'
 
 Plugin 'IndexedSearch'
 
@@ -68,6 +68,9 @@ set listchars=tab:\ \ ,trail:·,nbsp:_
 set hidden
 set hlsearch
 set noshowmode
+
+set path+=**
+
 set t_Co=256
 " Colorscheme
 set termguicolors
@@ -105,7 +108,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:bufferline_echo = 0
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+" let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 let g:airline#extensions#tmuxline#enabled = 0
 
 " fixing vim-chef autodetect
@@ -118,22 +121,16 @@ au BufNewFile,BufRead Rakefile set tabstop=2
 au BufNewFile,BufRead Rakefile set softtabstop=2
 au BufNewFile,BufRead Rakefile set shiftwidth=2
 
-au BufWritePost * Neomake
+try
+    au BufWritePost * Neomake
+endtry
 
-
-if exists(':RainbowParenthesesActivate')
-    au VimEnter * RainbowParenthesesToggle
-    au VimEnter * RainbowParenthesesActivate
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-endif
+let g:rainbow_active = 1
 
 set colorcolumn=80
 
 set enc=utf-8
 set fillchars=vert:\│
-
 " set t_8f=^[[38;2;%lu;%lu;%lum
 " set t_8b=^[[48;2;%lu;%lu;%lum
 
@@ -171,4 +168,7 @@ let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
-let g:indentLine_char = '│'
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#151A1E'
+let g:indentLine_char = '┆'
+
