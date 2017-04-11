@@ -14,6 +14,8 @@ Plugin 'tpope/vim-endwise.git'
 Plugin 'tpope/vim-sensible.git'
 Plugin 'plasticboy/vim-markdown.git'
 Plugin 'vim-ruby/vim-ruby.git'
+" Apparently runs rspecs, but not sure it's useful
+" Plugin 'thoughtbot/vim-rspec'
 " ctags like jumping around in chef code
 " Plugin 't9md/vim-chef.git', {'name': 'vimchef'}
 " enables foodcritic checks and aware environment
@@ -38,12 +40,12 @@ Plugin 'honza/vim-snippets.git'
 Plugin 'elzr/vim-json.git'
 " can export theme to tmux
 " Plugin 'edkolev/tmuxline.vim'
-" plugin to show the list of buffers in the command bar
-Plugin 'bling/vim-bufferline'
 " I don't need it but let's keep it here as a remainder
 " Plugin 'takac/vim-hardtime'
 Plugin 'ayu-theme/ayu-vim'
 Plugin 'Yggdroot/indentLine'
+" let's try ctrlp one more time
+Plugin 'kien/ctrlp.vim'
 
 Plugin 'IndexedSearch'
 
@@ -70,6 +72,8 @@ set hlsearch
 set noshowmode
 
 set path+=**
+set lazyredraw
+set ttyfast
 
 set t_Co=256
 " Colorscheme
@@ -91,7 +95,7 @@ set number
 set relativenumber
 
 set showtabline=2
-set cursorline
+" set cursorline
 
 
 " set nomodeline
@@ -101,6 +105,7 @@ nnoremap <c-f> :NERDTreeToggle<CR>
 map <c-/> TComment<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <c-l> :CtrlPBuffer<CR>
 
 let g:airline_powerline_fonts = 0
 " let g:airline_exclude_preview = 1
@@ -115,11 +120,19 @@ let g:airline#extensions#tmuxline#enabled = 0
 au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
+au BufNewFile,BufRead *.rb set re=1
 
 " Rakefile should respect common settings
 au BufNewFile,BufRead Rakefile set tabstop=2
 au BufNewFile,BufRead Rakefile set softtabstop=2
 au BufNewFile,BufRead Rakefile set shiftwidth=2
+au BufNewFile,BufRead Rakefile set re=1
+
+" fixing vim-chef autodetect
+au BufNewFile,BufRead *.rake set tabstop=2
+au BufNewFile,BufRead *.rake set softtabstop=2
+au BufNewFile,BufRead *.rake set shiftwidth=2
+au BufNewFile,BufRead *.rake set re=1
 
 try
     au BufWritePost * Neomake
