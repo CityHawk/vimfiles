@@ -72,7 +72,8 @@ set hlsearch
 set noshowmode
 
 set path+=**
-set lazyredraw
+" set lazyredraw
+set cursorline
 set ttyfast
 
 set t_Co=256
@@ -121,18 +122,21 @@ au BufNewFile,BufRead *.rb set tabstop=2
 au BufNewFile,BufRead *.rb set softtabstop=2
 au BufNewFile,BufRead *.rb set shiftwidth=2
 au BufNewFile,BufRead *.rb set re=1
+au BufNewFile,BufRead *.rb set lazyredraw
 
 " Rakefile should respect common settings
 au BufNewFile,BufRead Rakefile set tabstop=2
 au BufNewFile,BufRead Rakefile set softtabstop=2
 au BufNewFile,BufRead Rakefile set shiftwidth=2
 au BufNewFile,BufRead Rakefile set re=1
+au BufNewFile,BufRead Rakefile set lazyredraw
 
 " fixing vim-chef autodetect
 au BufNewFile,BufRead *.rake set tabstop=2
 au BufNewFile,BufRead *.rake set softtabstop=2
 au BufNewFile,BufRead *.rake set shiftwidth=2
 au BufNewFile,BufRead *.rake set re=1
+au BufNewFile,BufRead *.rake set lazyredraw
 
 try
     au BufWritePost * Neomake
@@ -147,32 +151,32 @@ set fillchars=vert:\│
 " set t_8f=^[[38;2;%lu;%lu;%lum
 " set t_8b=^[[48;2;%lu;%lu;%lum
 
-hi Comment gui=italic cterm=italic
-hi Define gui=italic cterm=italic
-
-hi Conditional gui=bold cterm=bold
-hi Constant gui=bold cterm=bold
-hi Debug gui=bold cterm=bold
-hi DiffText gui=italic,bold cterm=italic,bold
-hi Directory gui=bold cterm=bold
-hi ErrorMsg gui=bold cterm=bold
-hi Exception gui=bold cterm=bold
-hi Keyword gui=bold cterm=bold
-hi Macro gui=italic cterm=italic
-hi SpecialKey gui=italic cterm=italic
-hi MatchParen gui=bold cterm=bold
-hi PreCondit gui=bold cterm=bold
-hi Repeat gui=bold cterm=bold
-hi SpecialChar gui=bold cterm=bold
-hi SpecialComment gui=bold cterm=bold
-hi Special gui=italic cterm=italic
-hi Statement gui=bold cterm=bold
-hi StorageClass gui=italic cterm=italic
-hi Tag gui=italic cterm=italic
-hi Todo gui=bold cterm=bold
-hi Underlined gui=underline cterm=underline
-hi VertSplit gui=bold cterm=bold
-hi WarningMsg gui=bold
+" hi Comment gui=italic cterm=italic
+" hi Define gui=italic cterm=italic
+"
+" hi Conditional gui=bold cterm=bold
+" hi Constant gui=bold cterm=bold
+" hi Debug gui=bold cterm=bold
+" hi DiffText gui=italic,bold cterm=italic,bold
+" hi Directory gui=bold cterm=bold
+" hi ErrorMsg gui=bold cterm=bold
+" hi Exception gui=bold cterm=bold
+" hi Keyword gui=bold cterm=bold
+" hi Macro gui=italic cterm=italic
+" hi SpecialKey gui=italic cterm=italic
+" hi MatchParen gui=bold cterm=bold
+" hi PreCondit gui=bold cterm=bold
+" hi Repeat gui=bold cterm=bold
+" hi SpecialChar gui=bold cterm=bold
+" hi SpecialComment gui=bold cterm=bold
+" hi Special gui=italic cterm=italic
+" hi Statement gui=bold cterm=bold
+" hi StorageClass gui=italic cterm=italic
+" hi Tag gui=italic cterm=italic
+" hi Todo gui=bold cterm=bold
+" hi Underlined gui=underline cterm=underline
+" hi VertSplit gui=bold cterm=bold
+" hi WarningMsg gui=bold
 
 
 
