@@ -12,13 +12,15 @@ Plugin 'tpope/vim-surround.git'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-endwise.git'
 Plugin 'tpope/vim-sensible.git'
+Plugin 'tpope/vim-unimpaired.git'
 Plugin 'tpope/vim-commentary.git'
 " all the syntax highlighing
 Plugin 'sheerun/vim-polyglot'
 " enables foodcritic checks and aware environment
 Plugin 'dougireton/vim-chef.git'
 " Plugin 'bling/vim-bufferline'
-Plugin 'neomake/neomake.git'
+" Plugin 'neomake/neomake.git'
+Plugin 'w0rp/ale'
 " rainbow brackets
 Plugin 'luochen1990/rainbow'
 " Plugin 'jonathanfilip/vim-lucius'
@@ -30,12 +32,13 @@ Plugin 'airblade/vim-gitgutter.git'
 " aligns text by whatever
 Plugin 'godlygeek/tabular.git'
 " I don't need it but let's keep it here as a remainder
-" Plugin 'takac/vim-hardtime'
+Plugin 'takac/vim-hardtime'
 Plugin 'tomasr/molokai'
-" Plugin 'ayu-theme/ayu-vim'
+Plugin 'ayu-theme/ayu-vim'
 Plugin 'Yggdroot/indentLine'
 " let's try ctrlp one more time
 Plugin 'kien/ctrlp.vim'
+Plugin 'janko-m/vim-test'
 
 Plugin 'IndexedSearch'
 
@@ -43,6 +46,8 @@ Plugin 'IndexedSearch'
 call vundle#end()            " required
 filetype plugin indent on    " required
 filetype on
+
+" here comes the flood
 
 set ic
 set tabstop=4
@@ -52,6 +57,7 @@ set softtabstop=4
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10
 set nofoldenable        "dont fold by default
+set noshowmatch
 set foldlevel=1
 set list
 set listchars=tab:\ \ ,trail:·,nbsp:_
@@ -67,16 +73,22 @@ set t_Co=256
 set termguicolors
 try
     colorscheme molokai
+    " colorscheme ayu
+    hi VertSplit guibg=bg guifg=fg
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme koehler
 endtry
+
+if !has('nvim')
+    set guifont=Menlo:h14
+endif
+
 set nobackup
 set nowritebackup
 set noswapfile
 set number
 set relativenumber
 set showtabline=2
-set guifont=Menlo:h14
 set colorcolumn=80
 set enc=utf-8
 set fillchars=vert:\│
@@ -89,21 +101,37 @@ autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 
 try
-  au BufWritePost * Neomake
+  " au BufWritePost * Neomake
   au BufWritePost * call SetMyStl()
 endtry
 
 let g:rainbow_active = 1
+let loaded_matchparen = 0
 
 hi Comment gui=italic cterm=italic
 hi Define gui=italic cterm=italic
 
 " set cursor shape for different modes
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+" let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+" let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 let g:indentLine_char = '┆'
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '❌'
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
 
 function! SetMyStl()
     set stl=
@@ -113,7 +141,10 @@ function! SetMyStl()
     set stl+=%=
     set stl+=%y\ %{strlen(&fenc)?&fenc:'none'}[%{&ff}]
     set stl+=\ %3.3p%%\ ☰\ %4.4l/%-4.4L\ ㏑\ :%3.3c\ [%3.3b][0x%02.2B]
-    set stl+=\ %#ErrorMsg#%{neomake#statusline#LoclistStatus('')}
+
+    set stl+=\ %#ErrorMsg#%{LinterStatus()}
 endfunction
 
 call SetMyStl()
+
+let g:hardtime_default_on = 1
