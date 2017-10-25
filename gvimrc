@@ -88,6 +88,9 @@ set nowritebackup
 set noswapfile
 set number
 set relativenumber
+let g:NERDTreeShowLineNumbers=1
+autocmd BufEnter NERD_* setlocal rnu
+
 set showtabline=2
 set colorcolumn=80
 set enc=utf-8
