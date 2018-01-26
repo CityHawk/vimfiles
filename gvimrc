@@ -26,7 +26,7 @@ Plugin 'luochen1990/rainbow'
 " Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ntpeters/vim-better-whitespace'
 " Completion by tab, not sure I need it
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 " shows git aware ruler to the left
 Plugin 'airblade/vim-gitgutter.git'
 " aligns text by whatever
@@ -120,8 +120,8 @@ hi Define gui=italic cterm=italic
 " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 let g:indentLine_char = '┆'
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_error = '❌'
+let g:ale_sign_error = '⚠'
+let g:ale_sign_warning = '»'
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -150,4 +150,4 @@ endfunction
 
 call SetMyStl()
 
-let g:hardtime_default_on = 1
+" let g:hardtime_default_on = 1
