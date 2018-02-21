@@ -40,6 +40,8 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'kien/ctrlp.vim'
 Plugin 'janko-m/vim-test'
 
+Plugin 'sbdchd/neoformat'
+
 Plugin 'IndexedSearch'
 
 " All of your Plugins must be added before the following line
@@ -54,11 +56,11 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set softtabstop=4
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10
+" set foldmethod=indent   "fold based on indent
+" set foldnestmax=10
 set nofoldenable        "dont fold by default
 set noshowmatch
-set foldlevel=1
+" set foldlevel=1
 set list
 set listchars=tab:\ \ ,trail:·,nbsp:_
 set hidden
@@ -99,6 +101,7 @@ set fillchars=vert:\│
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <c-l> :CtrlPBuffer<CR>
+nmap <silent> <F5> :TestFile<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
@@ -114,15 +117,19 @@ let loaded_matchparen = 0
 hi Comment gui=italic cterm=italic
 hi Define gui=italic cterm=italic
 
-" set cursor shape for different modes
-" let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-" let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-" let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-
 let g:indentLine_char = '┆'
 let g:ale_sign_error = '⚠'
 let g:ale_sign_warning = '»'
 
+" make test commands execute using dispatch.vim
+let test#strategy = "neovim"
+
+if has('nvim')
+    " control nvim terminal better
+    tmap <C-o> <C-\><C-n>
+end
+
+let g:neoformat_enabled_ruby = ['rubocop']
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
