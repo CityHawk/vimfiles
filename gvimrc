@@ -1,51 +1,50 @@
 " setting up Vundle
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin()
+Plug 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'tpope/vim-surround.git'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-endwise.git'
-Plugin 'tpope/vim-sensible.git'
-Plugin 'tpope/vim-unimpaired.git'
-Plugin 'tpope/vim-commentary.git'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-commentary'
 " all the syntax highlighing
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 " enables foodcritic checks and aware environment
-Plugin 'dougireton/vim-chef.git'
-" Plugin 'bling/vim-bufferline'
-" Plugin 'neomake/neomake.git'
-Plugin 'w0rp/ale'
+Plug 'dougireton/vim-chef'
+" Plug 'bling/vim-bufferline'
+" Plug 'neomake/neomake.git'
+Plug 'w0rp/ale'
 " rainbow brackets
-Plugin 'luochen1990/rainbow'
-" Plugin 'jonathanfilip/vim-lucius'
-Plugin 'ntpeters/vim-better-whitespace'
+Plug 'luochen1990/rainbow'
+" Plug 'jonathanfilip/vim-lucius'
+Plug 'ntpeters/vim-better-whitespace'
 " Completion by tab, not sure I need it
-" Plugin 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 " shows git aware ruler to the left
-Plugin 'airblade/vim-gitgutter.git'
+Plug 'airblade/vim-gitgutter'
 " aligns text by whatever
-Plugin 'godlygeek/tabular.git'
+Plug 'godlygeek/tabular'
 " I don't need it but let's keep it here as a remainder
-Plugin 'takac/vim-hardtime'
-Plugin 'tomasr/molokai'
-Plugin 'ayu-theme/ayu-vim'
-Plugin 'Yggdroot/indentLine'
+Plug 'takac/vim-hardtime'
+Plug 'tomasr/molokai'
+Plug 'ayu-theme/ayu-vim'
+Plug 'Yggdroot/indentLine'
 " let's try ctrlp one more time
-Plugin 'kien/ctrlp.vim'
-Plugin 'janko-m/vim-test'
+Plug 'kien/ctrlp.vim'
+Plug 'janko-m/vim-test'
 
-Plugin 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 
-Plugin 'IndexedSearch'
+Plug 'vim-scripts/IndexedSearch'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
 filetype on
 
