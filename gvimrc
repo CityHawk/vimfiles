@@ -43,6 +43,10 @@ Plug 'sbdchd/neoformat'
 
 Plug 'vim-scripts/IndexedSearch'
 
+" ruby blocks as text objects
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -100,6 +104,7 @@ set fillchars=vert:\│
 nnoremap <c-f> :NERDTreeToggle<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <c-l> :CtrlPBuffer<CR>
+nmap <silent> <F3> :Neoformat<CR>
 nmap <silent> <F5> :TestFile<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
@@ -157,3 +162,9 @@ endfunction
 call SetMyStl()
 
 " let g:hardtime_default_on = 1
+
+runtime macros/matchit.vim
+
+" Enable spell checking for markdown files
+au BufRead *.md setlocal spell
+au BufRead *.markdown setlocal spell
