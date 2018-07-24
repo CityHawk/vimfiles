@@ -47,6 +47,10 @@ Plug 'vim-scripts/IndexedSearch'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
+" Trying out easytags, automated ctag generation
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -101,7 +105,7 @@ set colorcolumn=80
 set enc=utf-8
 set fillchars=vert:\│
 
-nnoremap <c-f> :NERDTreeToggle<CR>
+nnoremap <c-n> :NERDTreeToggle<CR>
 map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <c-l> :CtrlPBuffer<CR>
 nmap <silent> <F3> :Neoformat<CR>
@@ -141,7 +145,7 @@ function! LinterStatus() abort
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
+    \   "%dW %dE",
     \   all_non_errors,
     \   all_errors
     \)
@@ -156,7 +160,7 @@ function! SetMyStl()
     set stl+=%y\ %{strlen(&fenc)?&fenc:'none'}[%{&ff}]
     set stl+=\ %3.3p%%\ ☰\ %4.4l/%-4.4L\ ㏑\ :%3.3c\ [%3.3b][0x%02.2B]
 
-    set stl+=\ %#ErrorMsg#%{LinterStatus()}
+    set stl+=\ %{LinterStatus()}
 endfunction
 
 call SetMyStl()
