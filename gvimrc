@@ -50,6 +50,7 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 " Trying out easytags, automated ctag generation
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
