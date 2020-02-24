@@ -36,7 +36,7 @@ Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim'
 Plug 'Yggdroot/indentLine'
 " let's try ctrlp one more time
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'janko-m/vim-test'
 
 Plug 'sbdchd/neoformat'
@@ -50,7 +50,12 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 " Trying out easytags, automated ctag generation
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'MattesGroeger/vim-bookmarks'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -89,15 +94,13 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme koehler
 endtry
 
-if !has('nvim')
-    set guifont=Menlo:h14
-endif
+set guifont=Iosevka\ Term\ SS04:h13
 
 set nobackup
 set nowritebackup
 set noswapfile
 set number
-set relativenumber
+" set relativenumber
 let g:NERDTreeShowLineNumbers=1
 autocmd BufEnter NERD_* setlocal rnu
 
@@ -111,6 +114,8 @@ map <Tab><Tab> <C-W><C-W>
 nnoremap <silent> <c-l> :CtrlPBuffer<CR>
 nmap <silent> <F3> :Neoformat<CR>
 nmap <silent> <F5> :TestFile<CR>
+nmap <c-p> :Files<CR>
+nmap <c-l> :Buffers<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
@@ -155,7 +160,7 @@ endfunction
 function! SetMyStl()
     set stl=
     set stl=%#StatuslineDefault#✸\ %n
-    set stl+=\ ᚠ\ %{fugitive#head()}
+    set stl+=\ git-branch:\ (%{fugitive#head()})
     set stl+=\ %f%m%r%h
     set stl+=%=
     set stl+=%y\ %{strlen(&fenc)?&fenc:'none'}[%{&ff}]
@@ -173,3 +178,9 @@ runtime macros/matchit.vim
 " Enable spell checking for markdown files
 au BufRead *.md setlocal spell
 au BufRead *.markdown setlocal spell
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+
+let g:ackprg = 'ag --vimgrep'
