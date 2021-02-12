@@ -4,8 +4,10 @@ filetype off
 call plug#begin()
 Plug 'VundleVim/Vundle.vim'
 
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -14,12 +16,12 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 " all the syntax highlighing
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 " enables foodcritic checks and aware environment
 Plug 'dougireton/vim-chef'
 " Plug 'bling/vim-bufferline'
 " Plug 'neomake/neomake.git'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 " rainbow brackets
 Plug 'luochen1990/rainbow'
 " Plug 'jonathanfilip/vim-lucius'
@@ -46,18 +48,23 @@ Plug 'sbdchd/neoformat'
 Plug 'vim-scripts/IndexedSearch'
 
 " ruby blocks as text objects
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
+" Plug 'kana/vim-textobj-user'
+" Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Trying out easytags, automated ctag generation
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neovim/nvim-lsp'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 " Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf'
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -92,6 +99,8 @@ try
     colorscheme monokai
     " colorscheme ayu
     " colorscheme gruvbox
+    " hi Normal ctermbg=16 guibg=#000000
+    " hi LineNr ctermbg=16 guibg=#000000
     hi VertSplit guibg=bg guifg=fg
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme koehler
@@ -119,9 +128,20 @@ set colorcolumn=80
 set enc=utf-8
 set fillchars=vert:\│
 
-nnoremap <c-n> :NERDTreeToggle<CR>
+" visual search and replacea for neovim
+set inccommand=nosplit
+
+augroup LuaHighlight
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
+" nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NvimTreeToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
+" nnoremap <leader>n :NvimTreeFindFile<CR>
 map <Tab><Tab> <C-W><C-W>
-nnoremap <silent> <c-l> :CtrlPBuffer<CR>
+" nnoremap <silent> <c-l> :CtrlPBuffer<CR>
 nmap <silent> <F3> :Neoformat<CR>
 nmap <silent> <F5> :TestFile<CR>
 nmap <c-p> :Files<CR>
@@ -129,6 +149,7 @@ nmap <c-l> :Buffers<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 
 try
   " au BufWritePost * Neomake
@@ -138,12 +159,21 @@ endtry
 let g:rainbow_active = 1
 let loaded_matchparen = 0
 
+" Disable quote concealing in JSON files
+set conceallevel=0
+
 hi Comment gui=italic cterm=italic
 hi Define gui=italic cterm=italic
 
-" let g:indentLine_char = '┆'
-" let g:ale_sign_error = '⚠'
-" let g:ale_sign_warning = '»'
+let g:indentLine_char = '┆'
+let g:indentLine_fileTypeExclude = ['json']
+let g:ale_sign_error = '⛔'
+let g:ale_sign_warning = '⚠'
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
+" In ~/.vim/vimrc, or somewhere similar.
+let g:ale_fixers = { 'javascript': ['eslint'], 'ruby': ['rubocop'], 'json': ['jq']}
 
 " make test commands execute using dispatch.vim
 let test#strategy = "neovim"
@@ -152,6 +182,33 @@ if has('nvim')
     " control nvim terminal better
     tmap <C-o> <C-\><C-n>
 end
+
+" lua <<EOF
+"     local nvim_lsp = require'nvim_lsp'
+"     nvim_lsp.solargraph.setup{}
+"     nvim_lsp.pyls.setup{
+"         settings = {
+"             pyls = {
+"                 configurationSources = {
+"                     pycodestyle,
+"                     flake8
+"                 }
+"             }
+"         }
+"     }
+" EOF
+
+let g:LanguageClient_autoStop = 0
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['tcp://localhost:7658']
+    \ }
+
+nnoremap <F4> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 
 let g:neoformat_enabled_ruby = ['rubocop']
 function! LinterStatus() abort
