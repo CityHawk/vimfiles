@@ -16,9 +16,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 " all the syntax highlighing
-" Plug 'sheerun/vim-polyglot'
-" enables foodcritic checks and aware environment
-Plug 'dougireton/vim-chef'
 " Plug 'bling/vim-bufferline'
 " Plug 'neomake/neomake.git'
 Plug 'dense-analysis/ale'
@@ -30,20 +27,21 @@ Plug 'ntpeters/vim-better-whitespace'
 " Plug 'ervandew/supertab'
 " shows git aware ruler to the left
 Plug 'airblade/vim-gitgutter'
-" aligns text by whatever
-Plug 'godlygeek/tabular'
 " I don't need it but let's keep it here as a remainder
 Plug 'takac/vim-hardtime'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim'
 Plug 'morhetz/gruvbox'
-Plug 'sickill/vim-monokai'
+Plug 'tanvirtin/monokai.nvim'
 Plug 'Yggdroot/indentLine'
 " let's try ctrlp one more time
 " Plug 'kien/ctrlp.vim'
 Plug 'janko-m/vim-test'
 
 Plug 'sbdchd/neoformat'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'tanvirtin/monokai.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'vim-scripts/IndexedSearch'
 
@@ -55,15 +53,12 @@ Plug 'vim-scripts/IndexedSearch'
 " Plug 'xolox/vim-easytags'
 " Plug 'xolox/vim-misc'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neovim/nvim-lsp'
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
-" Plug 'mileszs/ack.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'vijaymarupudi/nvim-fzf'
+Plug 'vijaymarupudi/nvim-fzf-commands'
 " Plug 'MattesGroeger/vim-bookmarks'
 
 " All of your Plugins must be added before the following line
@@ -144,8 +139,8 @@ map <Tab><Tab> <C-W><C-W>
 " nnoremap <silent> <c-l> :CtrlPBuffer<CR>
 nmap <silent> <F3> :Neoformat<CR>
 nmap <silent> <F5> :TestFile<CR>
-nmap <c-p> :Files<CR>
-nmap <c-l> :Buffers<CR>
+nmap <c-p> <cmd>lua require("fzf-commands").files()<CR>
+nmap <c-l> <cmd>lua require("fzf-commands").bufferpicker2()<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
@@ -184,19 +179,17 @@ if has('nvim')
 end
 
 " lua <<EOF
-"     local nvim_lsp = require'nvim_lsp'
-"     nvim_lsp.solargraph.setup{}
-"     nvim_lsp.pyls.setup{
-"         settings = {
-"             pyls = {
-"                 configurationSources = {
-"                     pycodestyle,
-"                     flake8
-"                 }
-"             }
-"         }
-"     }
+" local fzf = require("fzf")
+
+" coroutine.wrap(function()
+"   local result = fzf.fzf({"choice 1", "choice 2"}, "--ansi")
+"   -- result is a list of lines that fzf returns, if the user has chosen
+"   if result then
+"     print(result[1])
+"   end
+" end)()
 " EOF
+
 
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
@@ -236,7 +229,7 @@ function! SetMyStl()
     set stl+=\ %{LinterStatus()}
 endfunction
 
-call SetMyStl()
+" call SetMyStl()
 
 " let g:hardtime_default_on = 1
 
@@ -298,14 +291,3 @@ function! s:font_size_inc(count)
 	call s:update_font()
 endfunction
 
-command! GuiFontSizeDec call <SID>font_size_dec(1)
-command! GuiFontSizeInc call <SID>font_size_inc(1)
-command! -nargs=1 GuiFontSizeDecN call <SID>font_size_dec(<args>)
-command! -nargs=1 GuiFontSizeIncN call <SID>font_size_inc(<args>)
-
-" nnoremap <leader>- :<C-u>call <SID>font_size_dec(v:count)<CR>
-" nnoremap <leader>+ :<C-u>call <SID>font_size_inc(v:count)<CR>
-" nnoremap <leader>= :<C-u>call <SID>font_size_inc(v:count)<CR>
-
-nnoremap <C-ScrollWheelUp>   :call <SID>font_size_inc(1)<CR>
-nnoremap <C-ScrollWheelDown> :call <SID>font_size_dec(1)<CR>
