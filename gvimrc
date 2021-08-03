@@ -4,10 +4,11 @@ filetype off
 call plug#begin()
 Plug 'VundleVim/Vundle.vim'
 
-" Plug 'scrooloose/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+" tpope stuff
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -15,50 +16,26 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
-" all the syntax highlighing
-" Plug 'bling/vim-bufferline'
-" Plug 'neomake/neomake.git'
-Plug 'dense-analysis/ale'
 " rainbow brackets
-Plug 'luochen1990/rainbow'
-" Plug 'jonathanfilip/vim-lucius'
+Plug 'p00f/nvim-ts-rainbow'
 Plug 'ntpeters/vim-better-whitespace'
-" Completion by tab, not sure I need it
-" Plug 'ervandew/supertab'
 " shows git aware ruler to the left
 Plug 'airblade/vim-gitgutter'
-" I don't need it but let's keep it here as a remainder
-Plug 'takac/vim-hardtime'
-Plug 'tomasr/molokai'
-Plug 'ayu-theme/ayu-vim'
-Plug 'morhetz/gruvbox'
-Plug 'tanvirtin/monokai.nvim'
 Plug 'Yggdroot/indentLine'
-" let's try ctrlp one more time
-" Plug 'kien/ctrlp.vim'
-Plug 'janko-m/vim-test'
 
-Plug 'sbdchd/neoformat'
+Plug 'lukas-reineke/format.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'tanvirtin/monokai.nvim'
-Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'rktjmp/lush.nvim'
+Plug 'npxbr/gruvbox.nvim'
 
 Plug 'vim-scripts/IndexedSearch'
 
-" ruby blocks as text objects
-" Plug 'kana/vim-textobj-user'
-" Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Trying out easytags, automated ctag generation
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-Plug 'vijaymarupudi/nvim-fzf'
-Plug 'vijaymarupudi/nvim-fzf-commands'
 " Plug 'MattesGroeger/vim-bookmarks'
 
 " All of your Plugins must be added before the following line
@@ -67,7 +44,6 @@ filetype plugin indent on    " required
 filetype on
 
 " here comes the flood
-
 set ic
 set tabstop=4
 set shiftwidth=4
@@ -90,33 +66,14 @@ set ttyfast
 set t_Co=256
 " Colorscheme
 set termguicolors
-try
-    colorscheme monokai
-    " colorscheme ayu
-    " colorscheme gruvbox
-    " hi Normal ctermbg=16 guibg=#000000
-    " hi LineNr ctermbg=16 guibg=#000000
-    hi VertSplit guibg=bg guifg=fg
-catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme koehler
-endtry
 
-set guifont=Iosevka\ Term\ SS04:h13
-if exists('g:GtkGuiLoaded')
-    " call rpcnotify(1, 'Gui', 'Font', 'Iosevka Term Curly 13')
-    " call rpcnotify(1, 'Gui', 'Font','Victor Mono 13')
-    call rpcnotify(1, 'Gui', 'FontFeatures', 'PURS, cv17')
-    
-endif
 set mouse=a
 
 set nobackup
 set nowritebackup
 set noswapfile
 set number
-" set relativenumber
-let g:NERDTreeShowLineNumbers=1
-autocmd BufEnter NERD_* setlocal rnu
+set relativenumber
 
 set showtabline=2
 set colorcolumn=80
@@ -126,33 +83,19 @@ set fillchars=vert:\│
 " visual search and replacea for neovim
 set inccommand=nosplit
 
-augroup LuaHighlight
-  autocmd!
-  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-augroup END
-
-" nnoremap <c-n> :NERDTreeToggle<CR>
-nnoremap <C-n> :NvimTreeToggle<CR>
-" nnoremap <leader>r :NvimTreeRefresh<CR>
-" nnoremap <leader>n :NvimTreeFindFile<CR>
+nnoremap <c-n> :NvimTreeToggle<CR>
 map <Tab><Tab> <C-W><C-W>
-" nnoremap <silent> <c-l> :CtrlPBuffer<CR>
-nmap <silent> <F3> :Neoformat<CR>
-nmap <silent> <F5> :TestFile<CR>
-nmap <c-p> <cmd>lua require("fzf-commands").files()<CR>
-nmap <c-l> <cmd>lua require("fzf-commands").bufferpicker2()<CR>
+nmap <silent> <F3> :Format<CR>
+nmap <c-p> :Files<CR>
+nmap <c-l> :Buffers<CR>
+" reload vim config on the fly
+nnoremap <Leader>r :source $MYVIMRC<CR>
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-
-try
-  " au BufWritePost * Neomake
-  au BufWritePost * call SetMyStl()
-endtry
-
-let g:rainbow_active = 1
-let loaded_matchparen = 0
+autocmd Filetype terraform setlocal ts=2 sts=2 sw=2
+autocmd Filetype tf setlocal ts=2 sts=2 sw=2
 
 " Disable quote concealing in JSON files
 set conceallevel=0
@@ -162,132 +105,187 @@ hi Define gui=italic cterm=italic
 
 let g:indentLine_char = '┆'
 let g:indentLine_fileTypeExclude = ['json']
-let g:ale_sign_error = '⛔'
-let g:ale_sign_warning = '⚠'
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
 
 " In ~/.vim/vimrc, or somewhere similar.
-let g:ale_fixers = { 'javascript': ['eslint'], 'ruby': ['rubocop'], 'json': ['jq']}
-
-" make test commands execute using dispatch.vim
-let test#strategy = "neovim"
 
 if has('nvim')
     " control nvim terminal better
     tmap <C-o> <C-\><C-n>
 end
 
-" lua <<EOF
-" local fzf = require("fzf")
+lua <<EOF
+require "format".setup {
+    ["*"] = {
+        {cmd = {"sed -i 's/[ \t]*$//'"}} -- remove trailing whitespace
+    },
 
-" coroutine.wrap(function()
-"   local result = fzf.fzf({"choice 1", "choice 2"}, "--ansi")
-"   -- result is a list of lines that fzf returns, if the user has chosen
-"   if result then
-"     print(result[1])
-"   end
-" end)()
-" EOF
+    terraform = {
+        {cmd = {"terraform fmt"}}
+    },
+
+    tf = {
+        {cmd = {"terraform fmt"}}
+    },
+    python = {
+        {cmd = {"black"}}
+    },
+    json = {
+        {cmd = {"python -m json.tool"}}
+    },
+}
+
+require'nvim-treesitter.configs'.setup {
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+  }
+}
 
 
-let g:LanguageClient_autoStop = 0
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['tcp://localhost:7658']
-    \ }
+local gl = require('galaxyline')
+local colors = require('galaxyline.theme').default
+local condition = require('galaxyline.condition')
+local gls = gl.section
+gl.short_line_list = {'coc-explorer'}
 
-nnoremap <F4> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+gls.left[1] ={
+  FileIcon = {
+    provider = 'FileIcon',
+    condition = condition.buffer_not_empty,
+    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.bg},
+  },
+}
 
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+gls.left[2] = {
+  FileName = {
+    provider = 'FileName',
+    condition = condition.buffer_not_empty,
+    highlight = {colors.fg,colors.bg,'bold'}
+  }
+}
 
-let g:neoformat_enabled_ruby = ['rubocop']
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
+gls.left[3] = {
+  GitIcon = {
+    provider = function() return ' ' end,
+    condition = condition.check_git_workspace,
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.violet,colors.bg,'bold'},
+  }
+}
 
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
+gls.left[4] = {
+  GitBranch = {
+    provider = 'GitBranch',
+    condition = condition.check_git_workspace,
+    highlight = {colors.violet,colors.bg,'bold'},
+  }
+}
 
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   "%dW %dE",
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
+gls.left[5] = {
+  DiagnosticError = {
+    provider = 'DiagnosticError',
+    icon = '   ',
+    highlight = {colors.red,colors.bg}
+  }
+}
+gls.left[6] = {
+  DiagnosticWarn = {
+    provider = 'DiagnosticWarn',
+    icon = '   ',
+    highlight = {colors.yellow,colors.bg},
+  }
+}
 
-function! SetMyStl()
-    set stl=
-    set stl=%#StatuslineDefault#✸\ %n
-    set stl+=\ git-branch:\ (%{fugitive#head()})
-    set stl+=\ %f%m%r%h
-    set stl+=%=
-    set stl+=%y\ %{strlen(&fenc)?&fenc:'none'}[%{&ff}]
-    set stl+=\ %3.3p%%\ ☰\ %4.4l/%-4.4L\ ㏑\ :%3.3c\ [%3.3b][0x%02.2B]
+gls.left[7] = {
+  DiagnosticHint = {
+    provider = 'DiagnosticHint',
+    icon = '   ',
+    highlight = {colors.cyan,colors.bg},
+  }
+}
 
-    set stl+=\ %{LinterStatus()}
-endfunction
+gls.left[8] = {
+  DiagnosticInfo = {
+    provider = 'DiagnosticInfo',
+    icon = '   ',
+    highlight = {colors.blue,colors.bg},
+  }
+}
 
-" call SetMyStl()
+gls.right[1] = {
+  FileEncode = {
+    provider = 'FileEncode',
+    condition = condition.hide_in_width,
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.green,colors.bg,'bold'}
+  }
+}
 
-" let g:hardtime_default_on = 1
+gls.right[2] = {
+  FileFormat = {
+    provider = 'FileFormat',
+    condition = condition.hide_in_width,
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.green,colors.bg,'bold'}
+  }
+}
 
-runtime macros/matchit.vim
+
+gls.right[3] = {
+  LineInfo = {
+    provider = 'LineColumn',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.fg,colors.bg},
+  },
+}
+
+gls.right[4] = {
+  PerCent = {
+    provider = 'LinePercent',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.fg,colors.bg,'bold'},
+  }
+}
+
+gls.short_line_left[1] = {
+  BufferType = {
+    provider = 'FileTypeName',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.blue,colors.bg,'bold'}
+  }
+}
+
+gls.short_line_left[2] = {
+  SFileName = {
+    provider =  'SFileName',
+    condition = condition.buffer_not_empty,
+    highlight = {colors.fg,colors.bg,'bold'}
+  }
+}
+
+gls.short_line_right[1] = {
+  BufferIcon = {
+    provider= 'BufferIcon',
+    highlight = {colors.fg,colors.bg}
+  }
+}
+EOF
 
 " Enable spell checking for markdown files
 au BufRead *.md setlocal spell
 au BufRead *.markdown setlocal spell
-" :set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
 
-" let g:ackprg = 'ag --vimgrep'
+augroup Format
+    autocmd!
+    autocmd BufWritePost * FormatWrite
+augroup END
 
-if !exists('s:is_neovim_gtk_gui')
-	let s:is_neovim_gtk_gui = exists('g:GtkGuiLoaded') ? 1 : 0
-en
-
-" works for neovim-gtk and for neovim-qt since a250faf from 25-07-2018.
-" earlier neovim-qt have been supposed to be run with --no-ext-tabline option.
-call rpcnotify((s:is_neovim_gtk_gui ? 1 : 0), 'Gui', 'Option', 'Tabline', 0)
-
-let s:font_family = 'Iosevka Term Curly'
-let s:font_size = 13
-
-function! s:update_font()
-	if s:is_neovim_gtk_gui " neovim-gtk
-		call rpcnotify(
-			\ 1, 'Gui', 'Font', s:font_family.' '.string(s:font_size))
-	el " neovim-qt
-		call rpcnotify(
-			\ 0, 'Gui', 'Font', s:font_family.':h'.string(s:font_size))
-	en
-endfunction
-
-function! s:set_font_family(family)
-	let s:font_family = a:family
-	call s:update_font()
-endfunction
-
-command! -nargs=1 GuiFontFamily call <SID>set_font_family(<args>)
-
-" fast font inc/dec
-
-call s:update_font()
-
-function! s:font_size_dec(count)
-	let l:count = a:count | if l:count < 1 | let l:count = 1 | endif
-	let s:font_size = s:font_size - l:count
-	if s:font_size < 1 | let s:font_size = 1 | endif
-	call s:update_font()
-endfunction
-
-function! s:font_size_inc(count)
-	let l:count = a:count | if l:count < 1 | let l:count = 1 | endif
-	let s:font_size = s:font_size + l:count
-	if s:font_size < 1 | let s:font_size = 1 | endif
-	call s:update_font()
-endfunction
-
+set background=dark " or light if you want light mode
+colorscheme gruvbox
